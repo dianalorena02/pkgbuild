@@ -1,0 +1,20 @@
+diff -aur package.pristine/src/Makefile package.new/src/Makefile
+--- package.pristine/src/Makefile	2013-10-05 18:01:46.000000000 +0200
++++ package.new/src/Makefile	2013-10-13 12:04:20.161357099 +0200
+@@ -64,12 +64,12 @@
+ CC ?= gcc
+ INSTALL ?= install
+ 
+-PREFIX ?= /usr/local
+-LIBDIRNAME ?= /lib/faketime
++PREFIX ?= /usr
++LIBDIRNAME ?= /lib32/faketime/libfaketime
+ 
+-CFLAGS += -std=gnu99 -Wall -Wextra -Werror -DFAKE_STAT -DFAKE_SLEEP -DFAKE_TIMERS -DFAKE_INTERNAL_CALLS -fPIC -DPREFIX='"'$(PREFIX)'"' -DLIBDIRNAME='"'$(LIBDIRNAME)'"'
++CFLAGS += -std=gnu99 -Wall -Wextra -Werror -DFAKE_STAT -m32 -DFAKE_SLEEP -DFAKE_TIMERS -DFAKE_INTERNAL_CALLS -fPIC -DPREFIX='"'$(PREFIX)'"' -DLIBDIRNAME='"'$(LIBDIRNAME)'"'
+ LIB_LDFLAGS += -shared
+-LDFLAGS += -Wl,--version-script=libfaketime.map -lrt
++LDFLAGS += -Wl,--version-script=libfaketime.map -lrt -m32 -lpthread
+ LDADD += -ldl -lm -lpthread -lrt
+ 
+ SRC = libfaketime.c
