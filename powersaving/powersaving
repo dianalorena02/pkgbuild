@@ -1,0 +1,100 @@
+#!/bin/sh
+
+# Run powersaving script
+case $1 in
+  battery)
+    echo "Running powersaving on battery in 2 seconds"
+    sleep 2
+
+    # screen power saving
+    echo 3 > /sys/class/backlight/acpi_video0/brightness
+    sleep 2
+
+    # Enable DPMS and put the display to standby after 60 seconds, to suspend after 120 seconds, and turn it off after 180 seconds
+    # See also http://ptspts.blogspot.nl/2009/10/screen-blanking-dpms-screen-saver.html
+    export DISPLAY=:0
+    export XAUTHORITY=/home/orschiro/.Xauthority
+    su -c "xset dpms 120 180 240" orschiro
+    sleep 2
+
+    # Stop Crashplan Engine
+    systemctl stop crashplan
+    sleep 2
+
+    # Kill Dropbox
+    #systemctl stop dropbox@orschiro
+    #systemctl disable dropbox@orschiro
+
+    # Kill tracker
+    # if pidof tracker-miner-fs; then
+    # killall tracker-miner-fs
+    # fi
+    # if pidof tracker-store; then
+    #   killall tracker-store
+    # fi
+
+    # Kill Insync
+    if pidof insync; then
+      killall insync
+    fi
+    sleep 2
+
+    # Kill Dropbox
+    if pidof dropbox; then
+      killall dropbox
+    fi
+    sleep 2
+
+    # Disable dispatcher
+    systemctl stop NetworkManager-dispatcher 
+    sleep 2
+
+    systemctl disable NetworkManager-dispatcher
+    sleep 2
+  ;;
+  AC)
+    echo "Running powersaving on AC in 2 seconds"
+    sleep 2
+
+    # screen power saving
+    echo 12 > /sys/class/backlight/acpi_video0/brightness
+    sleep 2
+
+    export DISPLAY=:0
+    export XAUTHORITY=/home/orschiro/.Xauthority
+    su -c "xset dpms 0 0 0" orschiro
+    sleep 2
+
+    # Restart dispatcher
+    #systemctl restart NetworkManager
+    systemctl enable NetworkManager-dispatcher
+    sleep 2
+
+    systemctl restart NetworkManager-dispatcher
+    sleep 2
+
+    # Start Crashplan Engine
+    systemctl restart crashplan
+    sleep 2
+
+    # Restart Dropbox
+    #systemctl enable dropbox@orschiro
+    #systemctl restart dropbox@orschiro
+    su -c "dropboxd &" orschiro
+    sleep 2
+
+    # Start Insync
+    #insync
+  ;;
+  *)
+    echo "Determining if on AC or battery"
+    if cat /sys/class/power_supply/AC/online | grep 0 > /dev/null 2>&1
+    then
+      echo "Laptop is on battery"
+      /usr/local/bin/powersaving battery
+    else
+      echo "Laptop is on AC"
+      /usr/local/bin/powersaving AC
+    fi
+  ;;
+esac

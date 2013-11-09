@@ -1,0 +1,9 @@
+post_install() {
+  echo ""
+  echo "Please enable the powersaving service:"
+  echo "# systemctl enable powersaving.service" 
+  echo ""
+  echo "For an optimal powersaving experience install TLP:"
+  echo "https://wiki.archlinux.org/index.php/TLP"
+  echo ""
+}
