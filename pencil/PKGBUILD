@@ -1,0 +1,18 @@
+# Maintainer: Trương Xuân Tính <xuantinh@gmail.com>
+#Contributor: Nuno Araujo <nuno.araujo@russo79.com>
+pkgname=pencil
+pkgver=2.0.5
+pkgrel=1
+pkgdesc="Sketching and GUI prototyping tool"
+arch=('i686' 'x86_64')
+license=('GPL2')
+url="http://code.google.com/p/evoluspencil/"
+source=("http://evoluspencil.googlecode.com/files/${pkgname}-${pkgver}.tar.gz")
+md5sums=('eaf0c11e603e71af4532c672cab682cb')
+depends=('xulrunner')
+
+package() {
+    cp -a $srcdir/$pkgname-$pkgver/usr $pkgdir
+    cp -a $srcdir/$pkgname-$pkgver/COPYING $pkgdir/usr/share/pencil
+    chmod -R 755 $pkgdir
+}

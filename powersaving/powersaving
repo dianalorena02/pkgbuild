@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Run powersaving script
 case $1 in

@@ -1,7 +1,7 @@
 # Contributor: Robert Orzanna <orschiro@gmail.com>
 
 pkgname=powersaving
-pkgver=0.1
+pkgver=0.3
 pkgrel=1
 pkgdesc="A powersaving collection which perfectly supplements TLP"
 arch=('any')
@@ -10,14 +10,16 @@ license=('GPL')
 groups=()
 depends=('bash')
 install=powersaving.install
-source=('powersaving' '50-powersaving.rules' 'powersaving.service')
-md5sums=('44b50bfc4772f785283aa97276ad7d8c'
-         'af7cc441e079c3813446ce160b92a804'
-         'ecdc1ab89a1ea14fd47cc3c6a6a07009')
+source=('powersaving' '50-powersaving.rules' 'powersaving.service' '00-powersaving.sh')
+md5sums=('89905fe3990c2d3697b94fd5ae04ae2d'
+         '6f46b74088da2ef8a6036ee78a678451'
+         'ecdc1ab89a1ea14fd47cc3c6a6a07009'
+         'e43e3ea2ed9a817bd13ed37c1b79b773')
 
 package() {
   cd "${srcdir}"
   install -Dm644 "50-powersaving.rules" "$pkgdir/etc/udev/rules.d/50-powersaving.rules"
   install -Dm644 "powersaving.service" "$pkgdir/etc/systemd/system/powersaving.service"
+  install -Dm755 "00-powersaving.sh" "$pkgdir/usr/lib/systemd/system-sleep/00-powersaving.sh"
   install -Dm755 $pkgname "$pkgdir/usr/bin/$pkgname"
 }
