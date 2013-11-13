@@ -7,6 +7,7 @@ case $1 in
     sleep 2
 
     # screen power saving
+    # Change 3 to the desired level and adjust the path to the brightness module
     echo 3 > /sys/class/backlight/acpi_video0/brightness
     sleep 2
 
@@ -17,13 +18,10 @@ case $1 in
     su -c "xset dpms 120 180 240" orschiro
     sleep 2
 
+    # Stop applications with systemd services
     # Stop Crashplan Engine
     systemctl stop crashplan
     sleep 2
-
-    # Kill Dropbox
-    #systemctl stop dropbox@orschiro
-    #systemctl disable dropbox@orschiro
 
     # Kill tracker
     # if pidof tracker-miner-fs; then
@@ -33,16 +31,14 @@ case $1 in
     #   killall tracker-store
     # fi
 
-    # Kill Insync
-    if pidof insync; then
-      killall insync
-    fi
-    sleep 2
-
-    # Kill Dropbox
-    if pidof dropbox; then
-      killall dropbox
-    fi
+    # Stop applications with PIDs
+    applications-pids="insync dropbox"
+    for app in $application-pids
+    do
+      if pidof $app; then
+        killall $app
+      fi
+    
     sleep 2
 
     # Disable dispatcher
@@ -91,10 +87,10 @@ case $1 in
     if cat /sys/class/power_supply/AC/online | grep 0 > /dev/null 2>&1
     then
       echo "Laptop is on battery"
-      /usr/local/bin/powersaving battery
+      /usr/bin/powersaving battery
     else
       echo "Laptop is on AC"
-      /usr/local/bin/powersaving AC
+      /usr/bin/powersaving AC
     fi
   ;;
 esac
