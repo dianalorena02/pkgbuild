@@ -1,7 +1,7 @@
 # Contributor: Robert Orzanna <orschiro@gmail.com>
 
 pkgname=powersaving
-pkgver=0.8
+pkgver=0.9
 pkgrel=1
 pkgdesc="A powersaving collection which perfectly supplements TLP"
 arch=('any')
@@ -11,7 +11,7 @@ groups=()
 depends=('bash' 'gawk')
 install=powersaving.install
 source=('powersaving' '50-powersaving.rules' 'powersaving.service' '00-powersaving.sh')
-md5sums=('1ac0c8725442f7a64c4130c65bc4e763'
+md5sums=('e66f5d5138a0a1040c5861ef4b4b9f4c'
          '6f46b74088da2ef8a6036ee78a678451'
          'e8143991dcc63d9fda3932e822e3f0b6'
          '1f7ca0d63e9604833cc7e7dbf915cbd9')

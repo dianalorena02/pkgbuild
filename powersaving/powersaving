@@ -19,7 +19,7 @@ case $1 in
     #sleep 2
 
     # Enable suspend on lid closing
-    sed -i '/e2/ s/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
+    sed -i 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
 
     # Stop applications with systemd services
     # Stop Crashplan Engine
@@ -64,7 +64,7 @@ case $1 in
     #sleep 2
 
     # Disable suspend on lid closing
-    sed -i '/e2/ s/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
+    sed -i 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
     # Restart dispatcher
     #systemctl restart NetworkManager
