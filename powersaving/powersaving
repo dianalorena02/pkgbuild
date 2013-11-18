@@ -4,24 +4,27 @@
 case $1 in
   battery)
     echo "Running powersaving on battery in 2 seconds"
-    sleep 2
+    #sleep 2
 
     # screen power saving
     # Change 3 to the desired level and adjust the path to the brightness module
     echo 3 > /sys/class/backlight/acpi_video0/brightness
-    sleep 2
+    #sleep 2
 
     # Enable DPMS and put the display to standby after 60 seconds, to suspend after 120 seconds, and turn it off after 180 seconds
     # See also http://ptspts.blogspot.nl/2009/10/screen-blanking-dpms-screen-saver.html
     export DISPLAY=:0
     export XAUTHORITY=/home/orschiro/.Xauthority
     su -c "xset dpms 120 180 240" orschiro
-    sleep 2
+    #sleep 2
+
+    # Enable suspend on lid closing
+    sed -i '/e2/ s/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
 
     # Stop applications with systemd services
     # Stop Crashplan Engine
     systemctl stop crashplan
-    sleep 2
+    #sleep 2
 
     # Kill tracker
     # if pidof tracker-miner-fs; then
@@ -32,52 +35,54 @@ case $1 in
     # fi
 
     # Stop applications with PIDs
-    applications-pids="insync dropbox"
-    for app in $application-pids
+    for app in insync, dropbox
     do
       if pidof $app; then
         killall $app
       fi
-    
-    sleep 2
+    done
+    #sleep 2
 
     # Disable dispatcher
     systemctl stop NetworkManager-dispatcher 
-    sleep 2
+    #sleep 2
 
     systemctl disable NetworkManager-dispatcher
-    sleep 2
+    #sleep 2
   ;;
   AC)
     echo "Running powersaving on AC in 2 seconds"
-    sleep 2
+    #sleep 2
 
     # screen power saving
     echo 12 > /sys/class/backlight/acpi_video0/brightness
-    sleep 2
+    #sleep 2
 
     export DISPLAY=:0
     export XAUTHORITY=/home/orschiro/.Xauthority
     su -c "xset dpms 0 0 0" orschiro
-    sleep 2
+    #sleep 2
+
+    # Disable suspend on lid closing
+    sed -i '/e2/ s/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
     # Restart dispatcher
     #systemctl restart NetworkManager
     systemctl enable NetworkManager-dispatcher
-    sleep 2
+    #sleep 2
 
     systemctl restart NetworkManager-dispatcher
-    sleep 2
+    #sleep 2
 
     # Start Crashplan Engine
     systemctl restart crashplan
-    sleep 2
+    #sleep 2
 
     # Restart Dropbox
     #systemctl enable dropbox@orschiro
     #systemctl restart dropbox@orschiro
     su -c "dropboxd &" orschiro
-    sleep 2
+    #sleep 2
 
     # Start Insync
     #insync

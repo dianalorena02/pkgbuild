@@ -1,20 +1,20 @@
 # Contributor: Robert Orzanna <orschiro@gmail.com>
 
 pkgname=powersaving
-pkgver=0.4
+pkgver=0.8
 pkgrel=1
 pkgdesc="A powersaving collection which perfectly supplements TLP"
 arch=('any')
 url="https://github.com/orschiro/pkgbuild/powersaving"
 license=('GPL')
 groups=()
-depends=('bash')
+depends=('bash' 'gawk')
 install=powersaving.install
 source=('powersaving' '50-powersaving.rules' 'powersaving.service' '00-powersaving.sh')
-md5sums=('948a7e3093d14ed808a5592a17e90614'
+md5sums=('1ac0c8725442f7a64c4130c65bc4e763'
          '6f46b74088da2ef8a6036ee78a678451'
          'e8143991dcc63d9fda3932e822e3f0b6'
-         'e43e3ea2ed9a817bd13ed37c1b79b773')
+         '1f7ca0d63e9604833cc7e7dbf915cbd9')
 
 package() {
   cd "${srcdir}"
