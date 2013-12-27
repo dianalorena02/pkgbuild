@@ -2,10 +2,10 @@
 
 pkgname=dmenu-aliases
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple script to run dmenu with custom aliases"
 arch=('any')
-url="https://groups.google.com/forum/#!topic/wmii/Mvv5i2CPo7A"
+url="https://github.com/orschiro/pkgbuild/tree/master/dmenu-aliases"
 license=('GPL')
 depends=('dmenu')
 source=('dmenu_run_aliases')
