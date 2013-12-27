@@ -13,7 +13,7 @@ cmd=`(
           ( 
             stest -flx $PATH 
             source $aliases 
-	    	alias | sed 's/=.*//' | sed -e 's/\<alias\>//g'
+	    	alias | sed 's/=.*//' | sed 's/^alias //'
 	    	#source $functions 
 	    	#functions | sed 's/(.*//'
           ) | sort -u | tee "$cache" | dmenu "$@" 
