@@ -316,7 +316,7 @@ mvboli.ttf                                                  # MV Boli           
 
 source=( "${_ttf_ms_win8[@]}" "${_vista[@]}" "${_arabic[@]}" "${_hebrew[@]}"
     "${_SEA[@]}" "${_korean[@]}" "${_japanese[@]}" "${_zh_CN[@]}"
-    "${_zh_TW[@]}" "${_indic[@]}" "${_thai[@]}" "${_other[@]}")
+    "${_zh_TW[@]}" "${_indic[@]}" "${_thai[@]}" "${_other[@]}" license.rtf)
 
 function _extract_ttcs {
     # Tabs are essential!
@@ -403,7 +403,7 @@ function _package {
     done
 
     # Install license
-    #install -Dm644 license.rtf "$pkgdir/usr/share/licenses/$pkgname/license.rtf"
+    install -Dm644 license.rtf "$pkgdir/usr/share/licenses/$pkgname/license.rtf"
 }
 
 for package_name in ${pkgname[@]}; do
@@ -710,4 +710,5 @@ md5sums=('08076fbc949659080b0f8744f3729a26'
          '9e1c24a8ed076a03e4200225fd010d9f'
          '9a75b65bbb8757301cf5bf5a54c8df2a'
          'a580c429ba5130a697350dbb5fe64927'
-         '8bfeacd2fee6af7c3d4b49686857d814')
+         '8bfeacd2fee6af7c3d4b49686857d814'
+         'SKIP')
