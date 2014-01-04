@@ -2,3 +2,6 @@ resources/
 src/
 pkg/
 *.tar.gz
+*.ttf
+*.ttc
+ttf-ms-win8-*-any.pkg.tar

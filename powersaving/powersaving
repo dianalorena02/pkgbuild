@@ -19,7 +19,7 @@ case $1 in
     #sleep 2
 
     # Enable suspend on lid closing
-    sed -i 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
+    #sed -i 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
 
     # Stop applications with systemd services
     # Stop Crashplan Engine
@@ -47,7 +47,7 @@ case $1 in
     systemctl stop NetworkManager-dispatcher 
     #sleep 2
 
-    systemctl disable NetworkManager-dispatcher
+    #systemctl disable NetworkManager-dispatcher
     #sleep 2
   ;;
   AC)
@@ -60,15 +60,15 @@ case $1 in
 
     export DISPLAY=:0
     export XAUTHORITY=/home/orschiro/.Xauthority
-    su -c "xset dpms 0 0 0" orschiro
+    su -c "xset -dpms; xset s off" orschiro
     #sleep 2
 
     # Disable suspend on lid closing
-    sed -i 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
+    #sed -i 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
     # Restart dispatcher
     #systemctl restart NetworkManager
-    systemctl enable NetworkManager-dispatcher
+    #systemctl enable NetworkManager-dispatcher
     #sleep 2
 
     systemctl restart NetworkManager-dispatcher
@@ -85,7 +85,13 @@ case $1 in
     #sleep 2
 
     # Start Insync
-    #insync
+    su -c "insync start &" orschiro
+
+    #for app in "insync start", dropboxd
+    #do
+    #  su -c "$app" orschiro
+    #done
+
   ;;
   *)
     echo "Determining if on AC or battery"
