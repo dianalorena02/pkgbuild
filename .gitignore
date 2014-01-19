@@ -5,3 +5,4 @@ pkg/
 *.ttf
 *.ttc
 ttf-ms-win8-*-any.pkg.tar
+pygrooveshark/pygrooveshark
