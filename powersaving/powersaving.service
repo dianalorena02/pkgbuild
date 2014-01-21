@@ -1,11 +1,7 @@
 [Unit]
-Description=Run powersaving script in X
-Requires=graphical.target
-After=graphical.target
+Description=Run powersaving script depending on AC state
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/bin/powersaving
-
-[Install]
-WantedBy=graphical.target

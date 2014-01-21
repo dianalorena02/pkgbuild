@@ -8,14 +8,14 @@ case $1 in
 
     # screen power saving
     # Change 3 to the desired level and adjust the path to the brightness module
-    echo 3 > /sys/class/backlight/acpi_video0/brightness
+    echo 4 > /sys/class/backlight/thinkpad_screen/brightness
     #sleep 2
 
     # Enable DPMS and put the display to standby after 60 seconds, to suspend after 120 seconds, and turn it off after 180 seconds
     # See also http://ptspts.blogspot.nl/2009/10/screen-blanking-dpms-screen-saver.html
-    export DISPLAY=:0
-    export XAUTHORITY=/home/orschiro/.Xauthority
-    su -c "xset dpms 120 180 240" orschiro
+    #export DISPLAY=:0
+    #export XAUTHORITY=/home/orschiro/.Xauthority
+    #su -c "xset dpms 120 180 240" orschiro
     #sleep 2
 
     # Enable suspend on lid closing
@@ -23,9 +23,11 @@ case $1 in
 
     # Stop applications with systemd services
     # Stop Crashplan Engine
-    systemctl stop crashplan
+    systemctl stop crashplan.service
     #sleep 2
+    systemctl stop dropbox@orschiro.service
 
+    systemctl stop insync@orschiro.service
     # Kill tracker
     # if pidof tracker-miner-fs; then
     # killall tracker-miner-fs
@@ -35,16 +37,16 @@ case $1 in
     # fi
 
     # Stop applications with PIDs
-    for app in insync, dropbox
-    do
-      if pidof $app; then
-        killall $app
-      fi
-    done
+    #for app in insync, dropbox
+    #do
+    #  if pidof $app; then
+    #    killall $app
+    #  fi
+    #done
     #sleep 2
 
     # Disable dispatcher
-    systemctl stop NetworkManager-dispatcher 
+    #systemctl stop NetworkManager-dispatcher 
     #sleep 2
 
     #systemctl disable NetworkManager-dispatcher
@@ -55,12 +57,12 @@ case $1 in
     #sleep 2
 
     # screen power saving
-    echo 12 > /sys/class/backlight/acpi_video0/brightness
+    echo 7 > /sys/class/backlight/thinkpad_screen/brightness
     #sleep 2
 
-    export DISPLAY=:0
-    export XAUTHORITY=/home/orschiro/.Xauthority
-    su -c "xset -dpms; xset s off" orschiro
+    #export DISPLAY=:0
+    #export XAUTHORITY=/home/orschiro/.Xauthority
+    #su -c "xset -dpms; xset s off" orschiro
     #sleep 2
 
     # Disable suspend on lid closing
@@ -71,21 +73,23 @@ case $1 in
     #systemctl enable NetworkManager-dispatcher
     #sleep 2
 
-    systemctl restart NetworkManager-dispatcher
+    #systemctl restart NetworkManager-dispatcher
     #sleep 2
 
     # Start Crashplan Engine
     systemctl restart crashplan
     #sleep 2
 
+    systemctl restart insync@orschiro.service
+    systemctl restart dropbox@orschiro.service
     # Restart Dropbox
     #systemctl enable dropbox@orschiro
     #systemctl restart dropbox@orschiro
-    su -c "dropboxd &" orschiro
+    #su -c "dropboxd &" orschiro
     #sleep 2
 
     # Start Insync
-    su -c "insync start &" orschiro
+    #su -c "insync start &" orschiro
 
     #for app in "insync start", dropboxd
     #do

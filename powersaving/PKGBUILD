@@ -1,23 +1,25 @@
 # Contributor: Robert Orzanna <orschiro@gmail.com>
 
 pkgname=powersaving
-pkgver=1.2
+pkgver=1.5
 pkgrel=1
 pkgdesc="A powersaving collection which perfectly supplements TLP"
 arch=('any')
 url="https://github.com/orschiro/pkgbuild/powersaving"
 license=('GPL')
-groups=()
+#groups=()
 depends=('bash')
 #install=powersaving.install
-#source=('powersaving' '50-powersaving.rules' 'powersaving.service' '00-powersaving.sh')
-source=('50-powersaving.rules')
-md5sums=('37788cf7d28184df1168bd082e4e601d')
+source=('powersaving.service' 'powersaving-resume.service' '50-powersaving.rules' 'powersaving')
+md5sums=('448e3aa7e12aa33c89b006ff5713c832'
+         '2f58eb76a952d18199de0355c60dc404'
+         '943dba0dc4a09d25b14ed69442759e19'
+         'dc8b09a0f42876464ebd1c66b16b2984')
 
 package() {
   cd "${srcdir}"
-  install -Dm644 "50-powersaving.rules" "$pkgdir/etc/udev/rules.d/50-powersaving.rules"
-  #install -Dm644 "powersaving.service" "$pkgdir/etc/systemd/system/powersaving.service"
-  #install -Dm755 "00-powersaving.sh" "$pkgdir/usr/lib/systemd/system-sleep/00-powersaving.sh"
-  #install -Dm755 $pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 "50-powersaving.rules" "$pkgdir/usr/lib/udev/rules.d/50-powersaving.rules"
+  install -Dm644 "powersaving.service" "$pkgdir/usr/lib/systemd/system/powersaving.service"
+  install -Dm644 "powersaving-resume.service" "$pkgdir/usr/lib/systemd/system/powersaving-resume.service"
+  install -Dm755 $pkgname "$pkgdir/usr/bin/$pkgname"
 }
