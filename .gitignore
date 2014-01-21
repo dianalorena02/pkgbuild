@@ -2,7 +2,8 @@ resources/
 src/
 pkg/
 *.tar.gz
+!*.src.tar.gz
 *.ttf
 *.ttc
 ttf-ms-win8-*-any.pkg.tar
-pygrooveshark/pygrooveshark
+pygrooveshark/
