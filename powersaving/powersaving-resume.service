@@ -3,8 +3,8 @@ Description=Local system resume actions
 After=suspend.target
 
 [Service]
-Type=simple
-ExecStart=/usr/bin/systemctl restart powersaving.service
+Type=oneshot
+ExecStart=/usr/bin/powersaving
 
 [Install]
 WantedBy=suspend.target

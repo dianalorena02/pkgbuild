@@ -8,7 +8,7 @@ case $1 in
 
     # screen power saving
     # Change 3 to the desired level and adjust the path to the brightness module
-    echo 4 > /sys/class/backlight/thinkpad_screen/brightness
+    echo 10 > /sys/class/backlight/acpi_video0/brightness
     #sleep 2
 
     # Enable DPMS and put the display to standby after 60 seconds, to suspend after 120 seconds, and turn it off after 180 seconds
@@ -57,7 +57,7 @@ case $1 in
     #sleep 2
 
     # screen power saving
-    echo 7 > /sys/class/backlight/thinkpad_screen/brightness
+    echo 14 > /sys/class/backlight/acpi_video0/brightness
     #sleep 2
 
     #export DISPLAY=:0
@@ -77,7 +77,7 @@ case $1 in
     #sleep 2
 
     # Start Crashplan Engine
-    systemctl restart crashplan
+    systemctl restart crashplan.service
     #sleep 2
 
     systemctl restart insync@orschiro.service
