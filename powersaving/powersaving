@@ -15,7 +15,7 @@ case $1 in
     # See also http://ptspts.blogspot.nl/2009/10/screen-blanking-dpms-screen-saver.html
     #export DISPLAY=:0
     #export XAUTHORITY=/home/orschiro/.Xauthority
-    #su -c "xset dpms 120 180 240" orschiro
+    su -c "xset dpms 120 180 240" orschiro
     #sleep 2
 
     # Enable suspend on lid closing
@@ -62,7 +62,7 @@ case $1 in
 
     #export DISPLAY=:0
     #export XAUTHORITY=/home/orschiro/.Xauthority
-    #su -c "xset -dpms; xset s off" orschiro
+    su -c "xset -dpms; xset s off" orschiro
     #sleep 2
 
     # Disable suspend on lid closing

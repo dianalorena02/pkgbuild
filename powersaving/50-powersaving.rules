@@ -1,4 +1,4 @@
-SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="/usr/bin/powersaving"
-SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="/usr/bin/powersaving"
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/orschiro/.Xauthority", RUN+="/usr/bin/powersaving"
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/orschiro/.Xauthority", RUN+="/usr/bin/powersaving"
 
 
