@@ -1,0 +1,17 @@
+# Maintainer: Robert Orzanna <orschiro at gmail dot com>
+
+pkgname=pantheon-files-open-terminal
+pkgver=1.0
+pkgrel=1
+pkgdesc="A Pantheon files plugin for opening terminals in arbitrary local paths"
+arch=('any')
+url="https://bugs.launchpad.net/pantheon-files/+bug/1033456/comments/3"
+license=('LGPL')
+source=(terminal.contract)
+#depends=('pantheon-files' 'pantheon-terminal')
+md5sums=('b85737a8f2307a656ca527f8352b46eb')
+
+package() {
+  install -dm755 "$pkgdir"/usr/share/contractor/
+  install -m644 terminal.contract "$pkgdir"/usr/share/contractor/terminal.contract
+}

@@ -1,0 +1,7 @@
+[Contractor Entry]
+Name=Open Terminal Here
+Icon=terminal
+Description=Open Terminal Here
+MimeType=text/directory
+Exec=pantheon-terminal -d %U
+Gettext-Domain=pantheon-terminal
