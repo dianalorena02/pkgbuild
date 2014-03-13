@@ -1,8 +1,8 @@
 # Contributor: Robert Orzanna <orschiro@gmail.com>
 
 pkgname=powersaving
-pkgver=1.8
-pkgrel=1
+pkgver=1.9
+pkgrel=2
 pkgdesc="A powersaving collection which perfectly supplements TLP"
 arch=('any')
 url="https://github.com/orschiro/pkgbuild/powersaving"
@@ -10,15 +10,17 @@ license=('GPL')
 #groups=()
 depends=('bash')
 #install=powersaving.install
-source=('powersaving.service' 'powersaving-resume.service' '50-powersaving.rules' 'powersaving')
+source=('powersaving.service' 'powersaving-resume.service' '50-powersaving.rules' '99-lowbat.rules' 'powersaving')
 md5sums=('06764248d73fc1128838f9ab9b9e5694'
          '4f46d2b5ffe847d552a29e5e3b9bfa1c'
          '6bbcadd34468370261a7b0b7fbfb09d7'
-         'dfff66490313d3cec63453e6a8f91ad3')
+         '5580d3e9197d2619b491300015c1213c'
+         'd0b72a0ab3d8530593431138178e62e6')
 
 package() {
   cd "${srcdir}"
   install -Dm644 "50-powersaving.rules" "$pkgdir/usr/lib/udev/rules.d/50-powersaving.rules"
+  install -Dm644 "99-lowbat.rules" "$pkgdir/usr/lib/udev/rules.d/99-lowbat.rules"
   install -Dm644 "powersaving.service" "$pkgdir/usr/lib/systemd/system/powersaving.service"
   install -Dm644 "powersaving-resume.service" "$pkgdir/usr/lib/systemd/system/powersaving-resume.service"
   install -Dm755 $pkgname "$pkgdir/usr/bin/$pkgname"

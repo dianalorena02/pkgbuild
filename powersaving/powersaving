@@ -16,41 +16,24 @@ case $1 in
     #export DISPLAY=:0
     #export XAUTHORITY=/home/orschiro/.Xauthority
     su -c "xset dpms 120 180 240" orschiro
-    #sleep 2
+    
+    # Compositor
+    killall compton
+    
+    # Pulse
+    killall pulse
+    
+    # Webcam autosuspend
+    echo 'auto' > '/sys/bus/usb/devices/7-6/power/control';
 
     # Enable suspend on lid closing
     #sed -i 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
 
-    # Stop applications with systemd services
-    # Stop Crashplan Engine
+    # Stopping applications
     systemctl stop crashplan.service
-    #sleep 2
     systemctl stop dropbox@orschiro.service
-
     systemctl stop insync@orschiro.service
-    # Kill tracker
-    # if pidof tracker-miner-fs; then
-    # killall tracker-miner-fs
-    # fi
-    # if pidof tracker-store; then
-    #   killall tracker-store
-    # fi
-
-    # Stop applications with PIDs
-    #for app in insync, dropbox
-    #do
-    #  if pidof $app; then
-    #    killall $app
-    #  fi
-    #done
-    #sleep 2
-
-    # Disable dispatcher
-    #systemctl stop NetworkManager-dispatcher 
-    #sleep 2
-
-    #systemctl disable NetworkManager-dispatcher
-    #sleep 2
+    
   ;;
   AC)
     echo "Running powersaving on AC in 2 seconds"
@@ -65,36 +48,20 @@ case $1 in
     su -c "xset -dpms; xset s off" orschiro
     #sleep 2
 
+    # Compositor
+    compton -cC -o 0.3 &
+    
+    # Pulse
+    su -c "pulseaudio --start &" orschiro
+    
     # Disable suspend on lid closing
     #sed -i 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 
-    # Restart dispatcher
-    #systemctl restart NetworkManager
-    #systemctl enable NetworkManager-dispatcher
-    #sleep 2
-
-    #systemctl restart NetworkManager-dispatcher
-    #sleep 2
-
-    # Start Crashplan Engine
+    # Restarting applications
     systemctl restart crashplan.service
-    #sleep 2
-
     systemctl restart insync@orschiro.service
     systemctl restart dropbox@orschiro.service
-    # Restart Dropbox
-    #systemctl enable dropbox@orschiro
-    #systemctl restart dropbox@orschiro
-    #su -c "dropboxd &" orschiro
-    #sleep 2
 
-    # Start Insync
-    #su -c "insync start &" orschiro
-
-    #for app in "insync start", dropboxd
-    #do
-    #  su -c "$app" orschiro
-    #done
 
   ;;
   *)
