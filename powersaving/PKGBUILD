@@ -2,7 +2,7 @@
 
 pkgname=powersaving
 pkgver=1.9
-pkgrel=2
+pkgrel=4
 pkgdesc="A powersaving collection which perfectly supplements TLP"
 arch=('any')
 url="https://github.com/orschiro/pkgbuild/powersaving"
@@ -15,7 +15,7 @@ md5sums=('06764248d73fc1128838f9ab9b9e5694'
          '4f46d2b5ffe847d552a29e5e3b9bfa1c'
          '6bbcadd34468370261a7b0b7fbfb09d7'
          '5580d3e9197d2619b491300015c1213c'
-         'd0b72a0ab3d8530593431138178e62e6')
+         '64afaf4fc27b5e909c89e38b5d7637cf')
 
 package() {
   cd "${srcdir}"

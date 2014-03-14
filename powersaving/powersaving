@@ -20,8 +20,8 @@ case $1 in
     # Compositor
     killall compton
     
-    # Pulse
-    killall pulse
+    # Pulseaudio
+    killall pulseaudio
     
     # Webcam autosuspend
     echo 'auto' > '/sys/bus/usb/devices/7-6/power/control';
@@ -49,10 +49,22 @@ case $1 in
     #sleep 2
 
     # Compositor
-    compton -cC -o 0.3 &
+    ps cax | grep compton > /dev/null
+    if [ $? -eq 0 ]; then
+      echo "Compton is running."
+    else
+      echo "Compton is not running."
+      su -c "compton -bcC -o 0.3 &" orschiro
+    fi
     
     # Pulse
-    su -c "pulseaudio --start &" orschiro
+    ps cax | grep pulseaudio > /dev/null
+    if [ $? -eq 0 ]; then
+      echo "Pulseaudio is running."
+    else
+      echo "Pulseaudio is not running."
+      su -c "pulseaudio --start &" orschiro
+    fi
     
     # Disable suspend on lid closing
     #sed -i 's/HandleLidSwitch=suspend/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
@@ -61,7 +73,6 @@ case $1 in
     systemctl restart crashplan.service
     systemctl restart insync@orschiro.service
     systemctl restart dropbox@orschiro.service
-
 
   ;;
   *)
