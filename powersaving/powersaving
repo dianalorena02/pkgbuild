@@ -13,8 +13,8 @@ case $1 in
 
     # Enable DPMS and put the display to standby after 60 seconds, to suspend after 120 seconds, and turn it off after 180 seconds
     # See also http://ptspts.blogspot.nl/2009/10/screen-blanking-dpms-screen-saver.html
-    #export DISPLAY=:0
-    #export XAUTHORITY=/home/orschiro/.Xauthority
+    export DISPLAY=:0
+    export XAUTHORITY=/home/orschiro/.Xauthority
     su -c "xset dpms 120 180 240" orschiro
     
     # Compositor
@@ -37,17 +37,14 @@ case $1 in
   ;;
   AC)
     echo "Running powersaving on AC in 2 seconds"
-    #sleep 2
-
+    
     # screen power saving
     echo 14 > /sys/class/backlight/acpi_video0/brightness
-    #sleep 2
 
-    #export DISPLAY=:0
-    #export XAUTHORITY=/home/orschiro/.Xauthority
+    export DISPLAY=:0
+    export XAUTHORITY=/home/orschiro/.Xauthority
     su -c "xset -dpms; xset s off" orschiro
-    #sleep 2
-
+    
     # Compositor
     ps cax | grep compton > /dev/null
     if [ $? -eq 0 ]; then
