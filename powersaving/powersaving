@@ -24,7 +24,7 @@ case $1 in
     killall pulseaudio
     
     # Webcam autosuspend
-    echo 'auto' > '/sys/bus/usb/devices/7-6/power/control';
+    echo 'auto' > '/sys/bus/usb/devices/7-6/power/control'
 
     # Enable suspend on lid closing
     #sed -i 's/HandleLidSwitch=ignore/HandleLidSwitch=suspend/' /etc/systemd/logind.conf
@@ -44,6 +44,9 @@ case $1 in
     export DISPLAY=:0
     export XAUTHORITY=/home/orschiro/.Xauthority
     su -c "xset -dpms; xset s off" orschiro
+
+    # Webcam disable autosuspend
+    echo 'on' > '/sys/bus/usb/devices/7-6/power/control'
     
     # Compositor
     ps cax | grep compton > /dev/null
